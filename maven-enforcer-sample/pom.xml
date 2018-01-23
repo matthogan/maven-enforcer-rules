@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.codejago</groupId>
+	<artifactId>maven-enforcer-sample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>maven-enforcer-sample</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<!-- these are checked -->
+	<dependencies>
+		<dependency>
+			<groupId>com.codejago</groupId>
+			<artifactId>maven-enforcer-rules</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- this will only be checked if scopes is not set or scopes includes 
+			provided -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jgroups</groupId>
+			<artifactId>jgroups</artifactId>
+			<version>3.6.13.Final</version>
+		</dependency>
+	</dependencies>
+
+	<!-- these are not checked -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.meltmedia.jgroups</groupId>
+				<artifactId>jgroups-aws</artifactId>
+				<version>1.6.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.codejago</groupId>
+						<artifactId>maven-enforcer-rules</artifactId>
+						<version>0.0.1-SNAPSHOT</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>enforce</id>
+						<configuration>
+							<rules>
+								<majorVersionRule
+									implementation="com.codejago.maven.enforcer.MajorVersionRule">
+									<version>${java.version}</version>
+									<failOnInvalidVersion>true</failOnInvalidVersion>
+									<logAllJars>true</logAllJars>
+									<scopes>compile</scopes>
+								</majorVersionRule>
+							</rules>
+						</configuration>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

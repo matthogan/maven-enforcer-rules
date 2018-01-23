@@ -1,0 +1,21 @@
+######################
+# Eclipse
+######################
+.project
+.classpath
+.settings/
+
+######################
+# Maven/Build
+######################
+target/
+tmp/
+*.releaseBackup
+
+######################
+# Project Specific
+######################
+
+# embedded databases runwar
+.idea
+.vscode/
