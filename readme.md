@@ -12,7 +12,7 @@ Short circuit the maven build when direct dependencies are found with invalid ma
 ```
 [WARNING] Not enforcing jar D:\.m2\repository\javax\servlet\javax.servlet-api\3.0.1\javax.servlet-api-3.0.1.jar at provided scope
 [WARNING] Enforcing jar D:\.m2\repository\org\jgroups\jgroups\3.6.13.Final\jgroups-3.6.13.Final.jar
-[WARNING] Rule 0: com.allfinanz.maven.enforcer.MajorVersionRule failed with message:
+[WARNING] Rule 0: com.codejago.maven.enforcer.MajorVersionRule failed with message:
 Invalid major version in [D:\.m2\repository\org\jgroups\jgroups\3.6.13.Final\jgroups-3.6.13.Final.jar:org/jgroups/Address.class], found major version 51 but expected <= 50
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
