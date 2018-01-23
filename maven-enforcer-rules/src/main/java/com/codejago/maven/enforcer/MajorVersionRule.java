@@ -74,6 +74,9 @@ public class MajorVersionRule implements EnforcerRule {
 			MavenProject project = (MavenProject) helper.evaluate("${project}");
 			for (Object o : project.getArtifacts()) {
 				Artifact af = (Artifact) o;
+				if (af.getFile() == null) {
+					continue;
+				}
 				if (scopes == null || scopes.trim().length() == 0 || scopes.contains(af.getScope())) {
 					process(helper, af.getFile(), majorVersion);
 				} else if (logAllJars) {
@@ -84,7 +87,7 @@ public class MajorVersionRule implements EnforcerRule {
 		} catch (ExpressionEvaluationException e) {
 			throw new EnforcerRuleException("Unable to lookup an expression " + e.getLocalizedMessage(), e);
 		}
-		log.warn(String.format("Enforced dependencies major version %d in %d millis", majorVersion,
+		log.warn(String.format("Enforced dependencies major version %s/%d in %d millis", version, majorVersion,
 				System.currentTimeMillis() - time));
 	}
 
